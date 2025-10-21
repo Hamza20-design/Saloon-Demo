@@ -6,16 +6,16 @@
 <title>Demo Salon 💈</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0;font-family:"Poppins",sans-serif}
-  body{background:#1e1e1e;color:#fff;overflow-x:hidden}
+  html,body{width:100%;max-width:100%;overflow-x:hidden;background:#1e1e1e;color:#fff;}
   header{background:#b8860b;color:#fff;text-align:center;padding:20px 0;font-size:1.8rem;letter-spacing:1px;box-shadow:0 3px 10px rgba(0,0,0,.3)}
   .hero{padding:40px 20px;text-align:center;background:linear-gradient(45deg,#3a3a3a,#2c2c2c)}
   .hero h1{font-size:2.5rem;color:#fff;margin-bottom:10px}
   .hero p{color:#ddd;font-size:1.05rem}
 
   /* Premium services */
-  .section{padding:28px 20px}
+  .section{padding:28px 20px;overflow:hidden;}
   .section h2{color:#ffcc33;text-align:center;margin-bottom:18px}
-  .service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1100px;margin:0 auto}
+  .service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1100px;margin:0 auto;overflow:hidden;}
   .service{background:#2c2c2c;border-radius:12px;padding:12px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.45);transition:transform .2s}
   .service:hover{transform:translateY(-6px)}
   .service img{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:10px}
@@ -26,12 +26,11 @@
   .qty-controls span{min-width:26px;text-align:center;font-weight:700;color:#fff}
 
   /* All services small grid (two per row on mobile) */
-  .all-services{max-width:1100px;margin:28px auto;padding:18px;border-radius:12px;background:rgba(255,255,255,0.02);box-shadow:0 6px 18px rgba(0,0,0,0.5)}
+  .all-services{max-width:1100px;margin:28px auto;padding:18px;border-radius:12px;background:rgba(255,255,255,0.02);box-shadow:0 6px 18px rgba(0,0,0,0.5);overflow:hidden;}
   .all-services h2{color:#ffcc33;text-align:center;margin-bottom:12px}
-  .all-grid{display:grid;gap:12px;grid-template-columns:repeat(3,1fr)}
-  /* for small screens force two per row */
+  .all-grid{display:grid;gap:12px;grid-template-columns:repeat(3,1fr);overflow:hidden;}
   @media (max-width:600px){
-    .all-grid{grid-template-columns:repeat(2,1fr)}
+    .all-grid{grid-template-columns:repeat(2,1fr);overflow:hidden;}
   }
   .all-item{display:flex;gap:10px;align-items:center;padding:8px;border-radius:10px;background:rgba(255,255,255,0.02)}
   .all-item img{width:66px;height:66px;border-radius:8px;object-fit:cover}
@@ -44,7 +43,7 @@
 
   /* floating cart */
   .cart-icon{position:fixed;right:20px;bottom:22px;background:#b8860b;color:#fff;padding:12px 16px;border-radius:999px;display:flex;gap:10px;align-items:center;z-index:1000;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.5)}
-  .cart-popup{display:none;position:fixed;right:20px;bottom:80px;width:340px;background:#2c2c2c;border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,.6);z-index:1001}
+  .cart-popup{display:none;position:fixed;right:20px;bottom:80px;width:340px;background:#2c2c2c;border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,.6);z-index:1001;max-height:80vh;overflow-y:auto;}
   .cart-popup h3{text-align:center;color:#ffcc33;margin-bottom:10px}
   .cart-item{display:flex;align-items:center;gap:10px;padding:8px;background:#3a3a3a;border-radius:8px;margin-bottom:8px}
   .cart-item img{width:48px;height:48px;border-radius:6px;object-fit:cover}
@@ -56,7 +55,6 @@
 
   footer{text-align:center;padding:18px 0;color:#bbb;margin-top:28px;background:#111}
 
-  /* small helper */
   .centered{max-width:1100px;margin:0 auto}
 </style>
 </head>
@@ -66,12 +64,12 @@
 
   <section class="hero">
     <div class="centered" style="padding:6px 20px;">
-      <h1>Look Sharp, Feel Confident</h1> <!-- now white, not golden -->
+      <h1>Look Sharp, Feel Confident</h1>
       <p>Book your next style with ease and class.</p>
     </div>
   </section>
 
-  <!-- Premium Services (6) -->
+  <!-- Premium Services -->
   <section class="section">
     <h2>💆 Premium Services</h2>
     <div class="service-grid centered" id="premiumGrid">
@@ -143,96 +141,51 @@
     </div>
   </section>
 
-  <!-- All Services (small items) -->
+  <!-- All Services -->
   <section class="all-services">
     <h2>All Services</h2>
     <div class="all-grid" id="allGrid">
-      <!-- six items reused as small selectable rows (default qty 0) -->
+      <!-- items (unchanged) -->
       <div class="all-item" data-name="Haircut" data-price="800" data-img="haircut.jpg">
         <img src="haircut.jpg" alt="">
-        <div class="meta">
-          <h4>Haircut</h4>
-          <p>Rs. 800</p>
-        </div>
-        <div class="controls">
-          <button onclick="updateQtyFromAll(this,-1)">-</button>
-          <span>0</span>
-          <button onclick="updateQtyFromAll(this,1)">+</button>
-        </div>
+        <div class="meta"><h4>Haircut</h4><p>Rs. 800</p></div>
+        <div class="controls"><button onclick="updateQtyFromAll(this,-1)">-</button><span>0</span><button onclick="updateQtyFromAll(this,1)">+</button></div>
       </div>
 
       <div class="all-item" data-name="Beard Trim" data-price="500" data-img="beard.jpg">
         <img src="beard.jpg" alt="">
-        <div class="meta">
-          <h4>Beard Trim</h4>
-          <p>Rs. 500</p>
-        </div>
-        <div class="controls">
-          <button onclick="updateQtyFromAll(this,-1)">-</button>
-          <span>0</span>
-          <button onclick="updateQtyFromAll(this,1)">+</button>
-        </div>
+        <div class="meta"><h4>Beard Trim</h4><p>Rs. 500</p></div>
+        <div class="controls"><button onclick="updateQtyFromAll(this,-1)">-</button><span>0</span><button onclick="updateQtyFromAll(this,1)">+</button></div>
       </div>
 
       <div class="all-item" data-name="Facial" data-price="1200" data-img="facial.jpg">
         <img src="facial.jpg" alt="">
-        <div class="meta">
-          <h4>Facial</h4>
-          <p>Rs. 1200</p>
-        </div>
-        <div class="controls">
-          <button onclick="updateQtyFromAll(this,-1)">-</button>
-          <span>0</span>
-          <button onclick="updateQtyFromAll(this,1)">+</button>
-        </div>
+        <div class="meta"><h4>Facial</h4><p>Rs. 1200</p></div>
+        <div class="controls"><button onclick="updateQtyFromAll(this,-1)">-</button><span>0</span><button onclick="updateQtyFromAll(this,1)">+</button></div>
       </div>
 
       <div class="all-item" data-name="Hair Color" data-price="1800" data-img="color.jpg">
         <img src="color.jpg" alt="">
-        <div class="meta">
-          <h4>Hair Color</h4>
-          <p>Rs. 1800</p>
-        </div>
-        <div class="controls">
-          <button onclick="updateQtyFromAll(this,-1)">-</button>
-          <span>0</span>
-          <button onclick="updateQtyFromAll(this,1)">+</button>
-        </div>
+        <div class="meta"><h4>Hair Color</h4><p>Rs. 1800</p></div>
+        <div class="controls"><button onclick="updateQtyFromAll(this,-1)">-</button><span>0</span><button onclick="updateQtyFromAll(this,1)">+</button></div>
       </div>
 
       <div class="all-item" data-name="Massage" data-price="1500" data-img="massage.jpg">
         <img src="massage.jpg" alt="">
-        <div class="meta">
-          <h4>Massage</h4>
-          <p>Rs. 1500</p>
-        </div>
-        <div class="controls">
-          <button onclick="updateQtyFromAll(this,-1)">-</button>
-          <span>0</span>
-          <button onclick="updateQtyFromAll(this,1)">+</button>
-        </div>
+        <div class="meta"><h4>Massage</h4><p>Rs. 1500</p></div>
+        <div class="controls"><button onclick="updateQtyFromAll(this,-1)">-</button><span>0</span><button onclick="updateQtyFromAll(this,1)">+</button></div>
       </div>
 
       <div class="all-item" data-name="Styling" data-price="1000" data-img="styling.jpg">
         <img src="styling.jpg" alt="">
-        <div class="meta">
-          <h4>Styling</h4>
-          <p>Rs. 1000</p>
-        </div>
-        <div class="controls">
-          <button onclick="updateQtyFromAll(this,-1)">-</button>
-          <span>0</span>
-          <button onclick="updateQtyFromAll(this,1)">+</button>
-        </div>
+        <div class="meta"><h4>Styling</h4><p>Rs. 1000</p></div>
+        <div class="controls"><button onclick="updateQtyFromAll(this,-1)">-</button><span>0</span><button onclick="updateQtyFromAll(this,1)">+</button></div>
       </div>
-
     </div>
   </section>
 
   <!-- floating cart icon -->
-  <div class="cart-icon" onclick="toggleCart()">
-    🛒 <span id="cart-summary">0 items | Rs. 0</span>
-  </div>
+  <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cart-summary">0 items | Rs. 0</span></div>
 
   <!-- popup checkout panel -->
   <div class="cart-popup" id="cartPopup">
@@ -248,102 +201,70 @@
   <footer>© 2025 Demo Salon | Designed for Demo Purposes</footer>
 
 <script>
-  // cart object: { "Service Name": { qty, price, img } }
   const cart = {};
 
-  // Generic update function used by premium grid
   function updateQty(button, delta) {
-    const serviceEl = button.closest('.service');
-    const name = serviceEl.dataset.name;
-    const price = parseInt(serviceEl.dataset.price,10);
-    const img = serviceEl.dataset.img;
-    const span = serviceEl.querySelector('.qty-controls span');
-    let qty = parseInt(span.textContent,10) + delta;
-    if(qty < 0) qty = 0;
+    const el = button.closest('.service');
+    const name = el.dataset.name;
+    const price = parseInt(el.dataset.price);
+    const img = el.dataset.img;
+    const span = el.querySelector('span');
+    let qty = parseInt(span.textContent) + delta;
+    if(qty<0) qty=0;
     span.textContent = qty;
-
-    // sync with cart
-    if(qty === 0) delete cart[name];
-    else cart[name] = { qty, price, img };
-
-    // also sync matching small item (if exists)
-    const small = document.querySelector(`.all-item[data-name="${name}"]`);
-    if(small) small.querySelector('.controls span').textContent = qty;
-
+    if(qty===0) delete cart[name]; else cart[name]={qty,price,img};
+    const small=document.querySelector(`.all-item[data-name="${name}"]`);
+    if(small) small.querySelector('span').textContent=qty;
     updateCartUI();
   }
 
-  // update function used by all-services small list
-  function updateQtyFromAll(button, delta) {
-    const itemEl = button.closest('.all-item');
-    const name = itemEl.dataset.name;
-    const price = parseInt(itemEl.dataset.price,10);
-    const img = itemEl.dataset.img;
-    const span = itemEl.querySelector('.controls span');
-    let qty = parseInt(span.textContent,10) + delta;
-    if(qty < 0) qty = 0;
-    span.textContent = qty;
-
-    // sync with cart
-    if(qty === 0) delete cart[name];
-    else cart[name] = { qty, price, img };
-
-    // sync premium card (if exists)
-    const premium = document.querySelector(`.service[data-name="${name}"]`);
-    if(premium) premium.querySelector('.qty-controls span').textContent = qty;
-
+  function updateQtyFromAll(button, delta){
+    const el=button.closest('.all-item');
+    const name=el.dataset.name;
+    const price=parseInt(el.dataset.price);
+    const img=el.dataset.img;
+    const span=el.querySelector('span');
+    let qty=parseInt(span.textContent)+delta;
+    if(qty<0) qty=0;
+    span.textContent=qty;
+    if(qty===0) delete cart[name]; else cart[name]={qty,price,img};
+    const premium=document.querySelector(`.service[data-name="${name}"]`);
+    if(premium) premium.querySelector('span').textContent=qty;
     updateCartUI();
   }
 
-  // update floating summary and cart items list
   function updateCartUI(){
-    let totalItems = 0, totalPrice = 0;
-    for(const [name, item] of Object.entries(cart)){
-      totalItems += item.qty;
-      totalPrice += item.qty * item.price;
-    }
-    document.getElementById('cart-summary').textContent = `${totalItems} items | Rs. ${totalPrice}`;
-
-    // render items in popup
-    const container = document.getElementById('cartItemsContainer');
-    container.innerHTML = '';
-    if(Object.keys(cart).length === 0){
-      container.innerHTML = '<p style="color:#ddd;text-align:center">No services selected.</p>';
-      return;
-    }
-    for(const [name, item] of Object.entries(cart)){
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `<img src="${item.img}" alt="${name}"><span>${name} x${item.qty}</span><strong>Rs. ${item.price*item.qty}</strong>`;
-      container.appendChild(div);
+    let totalItems=0,totalPrice=0;
+    for(const [n,i] of Object.entries(cart)){totalItems+=i.qty;totalPrice+=i.qty*i.price;}
+    document.getElementById('cart-summary').textContent=`${totalItems} items | Rs. ${totalPrice}`;
+    const c=document.getElementById('cartItemsContainer');c.innerHTML='';
+    if(Object.keys(cart).length===0){c.innerHTML='<p style="color:#ddd;text-align:center">No services selected.</p>';return;}
+    for(const [n,i] of Object.entries(cart)){
+      const d=document.createElement('div');
+      d.className='cart-item';
+      d.innerHTML=`<img src="${i.img}" alt="${n}"><span>${n} x${i.qty}</span><strong>Rs. ${i.price*i.qty}</strong>`;
+      c.appendChild(d);
     }
   }
 
-  // toggle popup
   function toggleCart(){
-    const popup = document.getElementById('cartPopup');
-    popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
+    const p=document.getElementById('cartPopup');
+    p.style.display=(p.style.display==='block')?'none':'block';
   }
 
-  // book now -> validate date/time, generate wa message
   function bookNow(){
-    if(Object.keys(cart).length === 0){ alert('Please select at least one service.'); return; }
-    const date = document.getElementById('dateInput').value;
-    const time = document.getElementById('timeInput').value;
-    if(!date || !time){ alert('Please choose date and time.'); return; }
-
-    let message = "Hello! I would like to book the following services:%0A";
-    let total = 0;
-    for(const [name, item] of Object.entries(cart)){
-      message += `- ${name} x${item.qty} = Rs ${item.price*item.qty}%0A`;
-      total += item.qty * item.price;
-    }
-    message += `%0ATotal: Rs ${total}%0ADate: ${date}%0ATime: ${time}%0AName: [Your Name]`;
-    const phone = '923001234567'; // demo number
-    window.open(`https://wa.me/${phone}?text=${message}`,'_blank');
+    if(Object.keys(cart).length===0){alert('Please select at least one service.');return;}
+    const date=document.getElementById('dateInput').value;
+    const time=document.getElementById('timeInput').value;
+    if(!date||!time){alert('Please choose date and time.');return;}
+    let msg="Hello! I would like to book the following services:%0A";
+    let total=0;
+    for(const [n,i] of Object.entries(cart)){msg+=`- ${n} x${i.qty} = Rs ${i.price*i.qty}%0A`;total+=i.qty*i.price;}
+    msg+=`%0ATotal: Rs ${total}%0ADate: ${date}%0ATime: ${time}%0AName: [Your Name]%0AContact: [Phone]`;
+    const phone='923001234567';
+    window.open(`https://wa.me/${phone}?text=${msg}`,'_blank');
   }
 
-  // init UI
   updateCartUI();
 </script>
 </body>
